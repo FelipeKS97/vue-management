@@ -6,7 +6,7 @@
       <p>Bem Vindo! Realize seu login no sistema com E-mail e Senha.</p>
     </div>
     <div id="form">
-      <form @submit.prevent="doLogin">
+      <form @submit.prevent="isSignUp? doSignUp() : doLogin()">
         <label for="email">E-mail</label>
         <input type="text" id="email" v-model="email" placeholder="exemplo@exemplo.com" autocomplete="off">
 
@@ -14,7 +14,12 @@
         <i class="fas" :class="[passwordIcon]" @click="hidePassword = !hidePassword"></i>
         <input :type="passwordType" id="password" v-model="password" placeholder="**********">
 
-        <button type="submit">Acessar</button>
+        <v-btn type="submit">{{isSignUp ? 'Cadastrar' : 'Acessar' }}</v-btn>
+       
+        <v-btn flat color="#fff" @click="isSignUp = !isSignUp"> 
+            {{!isSignUp ? 'Criar Conta' : 'Voltar'}}
+        </v-btn>
+        
       </form>
     </div>
   </div>
@@ -31,7 +36,7 @@ export default {
             email: '',
             password: '',
             hidePassword: true,
-            isSignUp: false
+            isSignUp: false,
 
         }
     },
@@ -45,7 +50,10 @@ export default {
     },
     methods: {
         doLogin() {
-        alert('Not yet')
+            alert('Not yet')
+        },
+        doSignUp() {
+            alert('Not yet too')
         }
     }
 }
