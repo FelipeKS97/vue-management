@@ -14,6 +14,28 @@ export default new Router({
       name: 'login',
       component: Login
     },
+    { 
+      path: '/management', component: () => import('./views/Management.vue'),
+      children: [
+        /*{
+          path: 'profile',
+          component: UserProfile
+        },
+        {
+          path: 'users',
+          component: () => import('./views/Users.vue')
+        },
+        {
+          path: 'dashboard',
+          component: Dashboard
+        },
+        {
+          path: 'canvas',
+          component: Users
+        },*/
+
+      ]
+    },
     {
       path: '/about',
       name: 'about',

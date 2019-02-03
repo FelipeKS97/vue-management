@@ -5,12 +5,22 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    
+    userData: {
+      email: '',
+      name: '',
+    },
+    users: [],
+    isAuthenticated: false
+
   },
   mutations: {
 
   },
   actions: {
+    doLogin({ commit }, payload) {
+      alert(payload.info)
+      commit()
+    }
 
   }
 })

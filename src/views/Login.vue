@@ -1,9 +1,16 @@
 <template>
 <div id="login-page">
   <div id="login">
-    <div id="description">
-      <h1>Login</h1>
-      <p>Bem Vindo! Realize seu login no sistema com E-mail e Senha.</p>
+    <div id="description">    
+        <template v-if="!isSignUp">
+            <h1>Login</h1>
+            <p>Bem Vindo! Realize seu login no sistema com e-mail e Senha.</p>
+        </template>
+      
+        <template v-else>
+            <h1>Cadastro</h1>
+            <p>Cadastre-se agora informando seu e-mail e senha.</p>
+        </template>
     </div>
     <div id="form">
       <form @submit.prevent="isSignUp? doSignUp() : doLogin()">
@@ -15,7 +22,7 @@
         <input :type="passwordType" id="password" v-model="password" placeholder="**********">
 
         <v-btn type="submit">{{isSignUp ? 'Cadastrar' : 'Acessar' }}</v-btn>
-       
+
         <v-btn flat color="#fff" @click="isSignUp = !isSignUp"> 
             {{!isSignUp ? 'Criar Conta' : 'Voltar'}}
         </v-btn>
@@ -28,6 +35,7 @@
 
 <script>
 
+//import { mapActions } from 'vuex'
 
 export default {
     name: 'login',
@@ -50,15 +58,22 @@ export default {
     },
     methods: {
         doLogin() {
-            alert('Not yet')
+            this.$store.dispatch({
+                type: 'doLogin',
+                info: 'test'
+            })
+
+            //this.$router.push('/management')
+
         },
         doSignUp() {
-            alert('Not yet too')
+            //this.$router.push('/management')
+
         }
     }
 }
 </script>
 
 <style scoped>
-@import '../css/login.css';
+    @import '../css/login.css';
 </style>
