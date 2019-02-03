@@ -1,10 +1,10 @@
 <template>
 <div id="login-page">
   <div id="login">
-    <div id="description">    
+    <div id="description"> 
         <template v-if="!isSignUp">
             <h1>Login</h1>
-            <p>Bem Vindo! Realize seu login no sistema com e-mail e Senha.</p>
+            <p>Bem Vindo! Realize seu login no sistema com e-mail e senha.</p>
         </template>
       
         <template v-else>
@@ -13,13 +13,21 @@
         </template>
     </div>
     <div id="form">
+       <div class="logo-section">
+            <img class="logo-style" src='../assets/vueManagement.png' /> 
+        </div> 
       <form @submit.prevent="isSignUp? doSignUp() : doLogin()">
         <label for="email">E-mail</label>
         <input type="text" id="email" v-model="email" placeholder="exemplo@exemplo.com" autocomplete="off">
 
-        <label for="password">Senha</label>&nbsp;
+        <label for="password">Senha</label>
         <i class="fas" :class="[passwordIcon]" @click="hidePassword = !hidePassword"></i>
-        <input :type="passwordType" id="password" v-model="password" placeholder="**********">
+        <input type="password" id="password" v-model="password" placeholder="**********">
+
+        <template v-if="isSignUp">
+            <label for="password">Confirmar Senha</label>
+            <input type="password" id="password" v-model="confirmPassword" placeholder="**********">
+        </template>
 
         <v-btn type="submit">{{isSignUp ? 'Cadastrar' : 'Acessar' }}</v-btn>
 
@@ -30,6 +38,7 @@
       </form>
     </div>
   </div>
+  <notifications position="bottom right" group="login" />
 </div>
 </template>
 
@@ -43,32 +52,69 @@ export default {
         return {
             email: '',
             password: '',
+            confirmPassword: '',
             hidePassword: true,
             isSignUp: false,
 
         }
     },
     computed: {
-        passwordHide() {
-            return this.hidePassword ? 'password' : 'text'
-        },
         passwordIcon() {
             return this.hidePassword ? 'eye' : 'eye-off'
         }
     },
     methods: {
         doLogin() {
-            this.$store.dispatch({
-                type: 'doLogin',
-                info: 'test'
-            })
 
-            //this.$router.push('/management')
+            if(this.email.length === 0  || this.password.length === 0 ) {
+                this.$notify({
+                    group: 'login',
+                    title: 'Atenção!',
+                    type: 'warn',
+                    text: 'Informe email e senha.',
+                    duration: 5000,
+                });
 
+            } else {
+
+                this.$store.dispatch({
+                    type: 'login',
+                    email: this.email,
+                    password: this.password
+                })
+
+            }
         },
         doSignUp() {
-            //this.$router.push('/management')
+            if(this.email.length === 0  || this.password.length === 0 || this.confirmPassword.length ===0 ) {
+                this.$notify({
+                    group: 'login',
+                    title: 'Atenção!',
+                    type: 'warn',
+                    text: 'Informe email e senha.',
+                    duration: 5000,
+                });
 
+            } else {
+
+                if(this.password === this.confirmPassword) {
+                    this.$store.dispatch({
+                        type: 'register',
+                        email: this.email,
+                        password: this.password
+                    })
+                }
+                else {
+                    this.$notify({
+                        group: 'login',
+                        title: 'Atenção!',
+                        type: 'warn',
+                        text: 'As senhas não estão iguais.',
+                        duration: 5000,
+                    });
+                }
+
+            }
         }
     }
 }
