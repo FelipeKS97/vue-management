@@ -4,6 +4,9 @@
       <v-toolbar flat>
         <v-list>
           <v-list-tile>
+            <div class="logo-section">
+              <img class="logo-style" src='../assets/vueManagement.png' /> 
+            </div>
             <v-list-tile-title class="title">
               Vue Management
             </v-list-tile-title>
@@ -54,3 +57,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+@import '../css/management.css';
+</style>

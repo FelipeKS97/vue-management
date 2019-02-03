@@ -83,6 +83,10 @@ div#login-page div#login div#form a {
     padding: 1em;
 }
 
+.loading-bar {
+    position: absolute !important;
+    top: 0 !important;
+}
 
 div#login-page div#login div#form input {
     background-color: transparent;

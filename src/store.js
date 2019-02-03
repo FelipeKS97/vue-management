@@ -17,18 +17,27 @@ export default new Vuex.Store({
     },
     userToken: '',
     users: [],
-    isAuthenticated: false
+    isAuthenticated: false,
+    isLoading: false
 
   },
   mutations: {
     login (state, payload) {
       state.isAuthenticated = true,
       state.userToken = payload.token
+    },
+    loading(state) {
+      state.isLoading = true
+    },
+    loaded(state) {
+      state.isLoading = false
     }
 
   },
   actions: {
     login({ commit }, payload) {
+      commit('loading')
+
       post('/login', payload)
       .then(
         resp => {
@@ -36,6 +45,7 @@ export default new Vuex.Store({
         localStorage.setItem('authToken', token)
         setAuthToken(token)
         commit('login', {token})
+        commit('loaded')
 
         router.push('/management')
         
@@ -43,8 +53,13 @@ export default new Vuex.Store({
       .catch(
         
       )
+      .finally(
+        commit('loaded')
+      )
     },
     register({ commit }, payload) {
+      commit('loading')
+
       post('/register', payload)
       .then(
         resp => {
@@ -57,7 +72,9 @@ export default new Vuex.Store({
         
       })
       .catch(
-       
+      )
+      .finally(
+        commit('loaded')
       )
     }
 

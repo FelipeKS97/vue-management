@@ -1,5 +1,6 @@
 <template>
 <div id="login-page">
+    <v-progress-linear v-if="isLoading" class="loading-bar" height="2" color='#fff' :indeterminate="true">{{alert('test')}}</v-progress-linear>
   <div id="login">
     <div id="description"> 
         <template v-if="!isSignUp">
@@ -13,7 +14,7 @@
         </template>
     </div>
     <div id="form">
-       <div class="logo-section">
+        <div class="logo-section">
             <img class="logo-style" src='../assets/vueManagement.png' /> 
         </div> 
       <form @submit.prevent="isSignUp? doSignUp() : doLogin()">
@@ -61,6 +62,9 @@ export default {
     computed: {
         passwordIcon() {
             return this.hidePassword ? 'eye' : 'eye-off'
+        },
+        isLoading () {
+            return this.$store.state.isLoading
         }
     },
     methods: {
