@@ -1,58 +1,104 @@
 <template>
     <v-app id="inspire">
-    <v-navigation-drawer permanent>
-      <v-toolbar flat>
-        <v-list>
-          <v-list-tile>
-            <div class="logo-section">
-              <img class="logo-style" src='../assets/vueManagement.png' /> 
-            </div>
-            <v-list-tile-title class="title">
-              Vue Management
-            </v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-toolbar>
-  
-      <v-divider></v-divider>
+    
+    <v-navigation-drawer
+      fixed
+      v-model="drawer"
+      app
+    >
+      <v-list dense>
+        <v-list-tile>
 
-      <v-list  dense class="pt-0">
-        <v-list-tile v-for="item in items" :key="item.title">
-          <!--<v-list-tile-action>
-            <v-icon>{{item.icon}}</v-icon>
-          </v-list-tile-action>-->
-          <v-list-tile-title>{{item.title}}</v-list-tile-title>
+          <v-list-tile-action>
+            <v-icon>home</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>Home</v-list-tile-title>
+          </v-list-tile-content>
+
         </v-list-tile>
-       
+
+        <v-list-tile>
+        
+          <v-list-tile-action>
+            <v-icon>contact_mail</v-icon>
+          </v-list-tile-action>
+        
+          <v-list-tile-content>
+            <v-list-tile-title>Contact</v-list-tile-title>
+          </v-list-tile-content>
+        
+        </v-list-tile>
       </v-list>
-  
     </v-navigation-drawer>
+    <v-toolbar class="drawer-color" dark fixed app>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <div class="logo-section">
+        <img class="logo-style" src='../assets/vueManagement.png' /> 
+      </div>
+      <v-toolbar-title>Vue Management</v-toolbar-title>
+    </v-toolbar>
+
+    <v-content>
+      <v-container fluid grid-list-md>
+        <v-layout row wrap>
+
+          <v-flex d-flex xs12 sm6 md6>
+            <v-card >
+              <v-card-title primary class="title">Novos Desenhos</v-card-title>
+              <bar-chart></bar-chart>
+              <v-card-text></v-card-text>
+            </v-card>
+          </v-flex>
+
+          <v-flex d-flex xs12 sm6 md6>
+            <v-card >
+              <v-card-title primary class="title">Cadastros Recentes</v-card-title>
+              <line-chart></line-chart>
+              <v-card-text></v-card-text>
+            </v-card>
+          </v-flex>
+          
+        </v-layout>
+      </v-container>
+    </v-content>
+  
   </v-app>
 </template>
 
 
 <script>
 
+import Bar from '../components/BarChart.vue'
+import Line from '../components/LineChart.vue'
+
 export default {
-     name: 'management',
+    name: 'management',
+    components: {
+      'bar-chart': Bar,
+      'line-chart': Line
+    },
     data () {
         return {
-            items: [
-                { title: 'Dashboard', icon: 'dashboard' },
-                { title: 'Canvas', icon: 'message_draw' },
-                { title: 'Users', icon: 'account_group' },
-            ],
-            right: null,
-            admins: [
-                ['Management', 'people_outline'],
-                ['Settings', 'settings']
-            ],
-            cruds: [
-                ['Create', 'add'],
-                ['Read', 'insert_drive_file'],
-                ['Update', 'update'],
-                ['Delete', 'delete']
-            ]
+          items: [
+              { title: 'Dashboard', icon: 'dashboard' },
+              { title: 'Canvas', icon: 'message_draw' },
+              { title: 'Users', icon: 'account_group' },
+          ],
+          right: null,
+          mini: true,
+          drawer: true,
+          admins: [
+              ['Management', 'people_outline'],
+              ['Settings', 'settings']
+          ],
+          cruds: [
+              ['Create', 'add'],
+              ['Read', 'insert_drive_file'],
+              ['Update', 'update'],
+              ['Delete', 'delete']
+          ],
         }
     }
 }

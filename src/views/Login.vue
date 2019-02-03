@@ -30,7 +30,7 @@
             <input type="password" id="password" v-model="confirmPassword" placeholder="**********">
         </template>
 
-        <v-btn type="submit">{{isSignUp ? 'Cadastrar' : 'Acessar' }}</v-btn>
+        <v-btn :loading="isLoading" type="submit">{{isSignUp ? 'Cadastrar' : 'Acessar' }}</v-btn>
 
         <v-btn flat color="#fff" @click="isSignUp = !isSignUp"> 
             {{!isSignUp ? 'Criar Conta' : 'Voltar'}}
