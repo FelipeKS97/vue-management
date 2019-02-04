@@ -32,10 +32,10 @@ export default new Router({
           path: 'profile',
           component: () => import('./components/Profile.vue') 
         },
-        /*{
+        {
           path: 'canvas',
           component: () => import('./components/Canvas.vue') 
-        },*/
+        },
 
       ]
     }
