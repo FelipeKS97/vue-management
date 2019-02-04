@@ -18,7 +18,7 @@ export default new Router({
     { 
       path: '/management/', 
       component: Management, 
-      redirect: localStorage.getItem("authToken") ?  '/management/dashboard' :  '/',
+      redirect:  '/management/dashboard',
       children: [
         {
           path: 'dashboard',
