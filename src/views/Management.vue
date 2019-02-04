@@ -8,7 +8,7 @@
     >
       <v-toolbar flat class="transparent">
         <v-list class="pa-0">
-          <v-list-tile avatar>
+          <v-list-tile @click="redirect('profile')" avatar>
             <v-list-tile-avatar>
               <img src="https://randomuser.me/api/portraits/men/85.jpg">
             </v-list-tile-avatar>
@@ -21,7 +21,7 @@
       </v-toolbar>
 
       <v-list dense>
-        <v-list-tile :key="item" v-for="item in items">
+        <v-list-tile @click="redirect(item.route)" :key="item" v-for="item in items">
 
           <v-list-tile-action>
             <v-icon>{{item.icon}}</v-icon>
@@ -58,14 +58,25 @@ export default {
     data () {
         return {
           items: [
-              { title: 'Dashboard', icon: 'dashboard' },
-              { title: 'Desenho', icon: 'create' },
-              { title: 'Usuários', icon: 'group' },
+              { title: 'Dashboard', icon: 'dashboard', route: 'dashboard' },
+              { title: 'Desenho', icon: 'create', route: 'canvas' },
+              { title: 'Usuários', icon: 'group', route: 'users' },
+              { title: 'Sair', icon: 'input', route: '' },
           ],
           right: null,
           mini: true,
           drawer: true,
         }
+    },
+    methods: {
+      redirect (route) {
+        if(route === '') {
+          this.$store.dispatch({type: 'login'})
+          this.$router.push('/')
+        } else {
+          this.$router.push(`/management/${route}`)
+        }
+      }
     }
 }
 </script>

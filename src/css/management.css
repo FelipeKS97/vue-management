@@ -1,6 +1,14 @@
 .drawer-color {
     background-color: #34495e !important;
 }
+.selected-drawer-item {
+    background-color: #34495e30
+}
+
+.selected-drawer-item:hover {
+    background-color: #34495e66
+}
+
 .logo-section{
     text-align: center;
 }

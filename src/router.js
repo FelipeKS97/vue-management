@@ -16,23 +16,25 @@ export default new Router({
       component: Login
     },
     { 
-      path: '/management/', component: Management, redirect: '/management/dashboard',
+      path: '/management/', 
+      component: Management, 
+      redirect: localStorage.getItem("authToken") ?  '/management/dashboard' :  '/',
       children: [
         {
           path: 'dashboard',
           component: () => import('./components/Dashboard.vue'),
         },
-        /*{
-          path: 'profile',
-          component: () => import('./views/UserProfile.vue') 
-        },
         {
           path: 'users',
-          component: () => import('./views/Users.vue')
+          component: () => import('./components/Users.vue')
         },
         {
+          path: 'profile',
+          component: () => import('./components/Profile.vue') 
+        },
+        /*{
           path: 'canvas',
-          component: () => import('./views/Canvas.vue') 
+          component: () => import('./components/Canvas.vue') 
         },*/
 
       ]
